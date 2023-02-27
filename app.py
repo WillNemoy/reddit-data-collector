@@ -53,7 +53,7 @@ def clean_text(x):
 
             return new_text
 
-def redditAPIsubbreddit(user_input, REDDIT_API_KEY_PARA, REDDIT_API_KEY_SECRET_PARA, USER_AGENT_PARA):
+def redditAPIsubbreddit(user_input, user_limit, REDDIT_API_KEY_PARA, REDDIT_API_KEY_SECRET_PARA, USER_AGENT_PARA):
 
     reddit = praw.Reddit(client_id = REDDIT_API_KEY_PARA, #peronal use script
                         client_secret = REDDIT_API_KEY_SECRET_PARA, #secret token
@@ -73,7 +73,7 @@ def redditAPIsubbreddit(user_input, REDDIT_API_KEY_PARA, REDDIT_API_KEY_SECRET_P
     permalink_list = []
     url_list = []
 
-    for post in reddit.subreddit(user_input).hot(limit=None):
+    for post in reddit.subreddit(user_input).hot(limit=user_limit):
     #for post in reddit.subreddit(user_input).top(time_filter="all", limit=1000):
         title_list.append(clean_text(post.title))
         author_list.append(post.author)
@@ -193,7 +193,9 @@ REDDIT_API_KEY_SECRET = os.getenv("REDDIT_API_KEY_SECRET")
 USER_AGENT = "Will Collecting Reddit Data test" #os.getenv("USER_AGENT")
 
 
-redditAPIsubbreddit("MadeMeSmile", REDDIT_API_KEY, REDDIT_API_KEY_SECRET, USER_AGENT)
+redditAPIsubbreddit("MadeMeSmile", 10, REDDIT_API_KEY, REDDIT_API_KEY_SECRET, USER_AGENT)
+
+
 
 """
 #https://psaw.readthedocs.io/en/latest/
