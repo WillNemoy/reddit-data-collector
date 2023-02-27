@@ -22,7 +22,59 @@ reddit = praw.Reddit(client_id = REDDIT_API_KEY, #peronal use script
                     client_secret = REDDIT_API_KEY_SECRET, #secret token
                     user_agent = USER_AGENT)
 
-for submission in reddit.subreddit("MadeMeSmile").hot(limit=10):
-    print(submission.title)
+
+
+def clean_text(x):
+    
+        new_text = ""
+
+        for character in x:
+            if (character.isalnum() == True 
+                or character == " "
+                or character == "'"
+                or character == "#"
+                or character == "-"
+                or character == "("
+                or character == ")"
+                or character == "&"
+                or character == "%"
+                or character == "$"
+                or character == "@"
+                or character == "*"
+                or character == ":"
+                or character == ";"
+                or character == "."
+                or character == "?"
+                or character == "/"
+                or character == "["
+                or character == "]"
+                or character == "{"
+                or character == "}"
+                or character == "="
+                or character == "!"
+                or character == "<"
+                or character == ">"
+                or character == ","
+                or character == ""
+                or character == "_"
+                or character == "+"):
+
+                new_text += character
+
+        return new_text
+
+for submission in reddit.subreddit("MadeMeSmile").top(time_filter="all", limit=10):
+    print(clean_text(submission.title))
+    print(submission.author)
+    print(submission.author_flair_text)
+    print(submission.created_utc)
+    print(submission.id)
+    print(submission.num_comments)
+    print(submission.permalink)
+    print(submission.score)
+    print(submission.upvote_ratio)
+    print(submission.url)
+    print()
+
 
 # Output: 10 submissions
