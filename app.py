@@ -12,11 +12,11 @@ load_dotenv() # look in the ".env" file for env vars
 
 
 
-def redditAPI(subbreddit_or_thread, user_input, REDDIT_API_KEY_PARA, REDDIT_API_KEY_SECRET_PARA, USER_AGENT_PARA)
+def redditAPI(user_input, REDDIT_API_KEY_PARA, REDDIT_API_KEY_SECRET_PARA, USER_AGENT_PARA):
+
     reddit = praw.Reddit(client_id = REDDIT_API_KEY_PARA, #peronal use script
                         client_secret = REDDIT_API_KEY_SECRET_PARA, #secret token
                         user_agent = USER_AGENT_PARA)
-
 
     def clean_text(x):
         
@@ -71,37 +71,32 @@ def redditAPI(subbreddit_or_thread, user_input, REDDIT_API_KEY_PARA, REDDIT_API_
     permalink_list = []
     url_list = []
 
-    for submission in reddit.subreddit(user_input).top(time_filter="all", limit=10):
-        title_list.append(clean_text(submission.title))
-        author_list.append(submission.author)
-        created_time_list.append(submission.created_utc)
+    for post in reddit.subreddit("test").hot(limit=1000):
+    #for post in reddit.subreddit(user_input).top(time_filter="all", limit=1000):
+        title_list.append(clean_text(post.title))
+        """
+        author_list.append(post.author)
+        created_time_list.append(post.created_utc)
         
-        upvotes_list.append(submission.score)
-        comments_list.append(submission.num_comments)
-        upvote_ratio_list.append(submission.upvote_ratio)
+        upvotes_list.append(post.score)
+        comments_list.append(post.num_comments)
+        upvote_ratio_list.append(post.upvote_ratio)
 
-        id_list.append(submission.id)
-        name_list.append(submission.name)
+        id_list.append(post.id)
+        name_list.append(post.name)
 
-        permalink_list.append(submission.permalink)
-        url_list.append(submission.url)
+        permalink_list.append(post.permalink)
+        url_list.append(post.url)
+        """
 
 
     
     # initialize data of lists.
-    reddit_data = {"Title": title_list,
-                "Author": author_list,
-                "Date": created_time_list,
-                "Upvotes": upvotes_list
-                "Comments": comments_list,
-                "Upvote Ratio": upvote_ratio_list,
-                "Id": id_list,
-                "Name": name_list,
-                "Permalink": permalink_list,
-                "URL": url_list}
+    reddit_data = {"Title": title_list}
+                
     
     # Create DataFrame
-    df = pd.DataFrame(data)
+    df = pd.DataFrame(reddit_data)
 
     filename = user_input + " Reddit Data.xlsx"
     
@@ -112,4 +107,16 @@ REDDIT_API_KEY_SECRET = os.getenv("REDDIT_API_KEY_SECRET")
 USER_AGENT = os.getenv("USER_AGENT")
 
 
-redditAPI("subreddit", "MadeMeSmile", REDDIT_API_KEY, REDDIT_API_KEY_SECRET, USER_AGENT)
+redditAPI("MadeMeSmile", REDDIT_API_KEY, REDDIT_API_KEY_SECRET, USER_AGENT)
+
+""",
+"Author": author_list,
+"Date": created_time_list,
+"Upvotes": upvotes_list,
+"Comments": comments_list,
+"Upvote Ratio": upvote_ratio_list,
+"Id": id_list,
+"Name": name_list,
+"Permalink": permalink_list,
+"URL": url_list}
+"""
