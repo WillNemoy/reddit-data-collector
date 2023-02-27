@@ -3,6 +3,7 @@ python-dotenv
 pandas
 openpyxl
 psaw
+pmaw
 
 
 

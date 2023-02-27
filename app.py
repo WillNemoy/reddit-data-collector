@@ -73,7 +73,7 @@ def redditAPIsubbreddit(user_input, REDDIT_API_KEY_PARA, REDDIT_API_KEY_SECRET_P
     permalink_list = []
     url_list = []
 
-    for post in reddit.subreddit(user_input).hot(limit=100):
+    for post in reddit.subreddit(user_input).hot(limit=None):
     #for post in reddit.subreddit(user_input).top(time_filter="all", limit=1000):
         title_list.append(clean_text(post.title))
         author_list.append(post.author)
