@@ -117,7 +117,7 @@ REDDIT_API_KEY_SECRET = os.getenv("REDDIT_API_KEY_SECRET")
 USER_AGENT = "Will Collecting Reddit Data test" #os.getenv("USER_AGENT")
 
 
-redditAPIsubbreddit("MadeMeSmile", 10, REDDIT_API_KEY, REDDIT_API_KEY_SECRET, USER_AGENT)
+redditAPIsubbreddit("MadeMeSmile", 100, REDDIT_API_KEY, REDDIT_API_KEY_SECRET, USER_AGENT)
 
 
 
