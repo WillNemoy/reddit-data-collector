@@ -111,6 +111,31 @@ def redditAPIsubbreddit(user_input, user_limit, REDDIT_API_KEY_PARA, REDDIT_API_
     filename = user_input + " Reddit Data.xlsx"
     
     df.to_excel(filename)
+    
+REDDIT_API_KEY = os.getenv("REDDIT_API_KEY")
+REDDIT_API_KEY_SECRET = os.getenv("REDDIT_API_KEY_SECRET")
+USER_AGENT = "Will Collecting Reddit Data test" #os.getenv("USER_AGENT")
+
+
+redditAPIsubbreddit("MadeMeSmile", 10, REDDIT_API_KEY, REDDIT_API_KEY_SECRET, USER_AGENT)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 def redditAPIcomments(user_input, REDDIT_API_KEY_PARA, REDDIT_API_KEY_SECRET_PARA, USER_AGENT_PARA):
@@ -188,12 +213,7 @@ def redditAPItest(user_input, REDDIT_API_KEY_PARA, REDDIT_API_KEY_SECRET_PARA, U
                 
     
 
-REDDIT_API_KEY = os.getenv("REDDIT_API_KEY")
-REDDIT_API_KEY_SECRET = os.getenv("REDDIT_API_KEY_SECRET")
-USER_AGENT = "Will Collecting Reddit Data test" #os.getenv("USER_AGENT")
 
-
-redditAPIsubbreddit("MadeMeSmile", 10, REDDIT_API_KEY, REDDIT_API_KEY_SECRET, USER_AGENT)
 
 
 
