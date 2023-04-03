@@ -108,9 +108,29 @@ def redditAPIsubbreddit(user_input, user_limit, REDDIT_API_KEY_PARA, REDDIT_API_
     # Create DataFrame
     df = pd.DataFrame(reddit_data)
 
+    keywords_list = []
+    index_list = []
+    index = 0
+    for text in df["Text"]:
+        #here I should also remove punctuation and extract key phrases
+        keywords = text.split(" ")
+
+        for keywords in keywords:
+            keywords_list.append(keywords)
+            index_list.append(index)
+
+        index += 1
+
+
+    
     filename = user_input + " Reddit Data.xlsx"
     
-    df.to_excel(filename)
+    
+    with pd.ExcelWriter("web_app/" + file_name) as writer:  
+        df.to_excel(writer, sheet_name='Data')
+        df_sheet2.to_excel(writer, sheet_name='Abstract Words')
+        df_sheet3.to_excel(writer, sheet_name='Headline Words')
+        df_sheet4.to_excel(writer, sheet_name='Article Keywords')
     
 REDDIT_API_KEY = os.getenv("REDDIT_API_KEY")
 REDDIT_API_KEY_SECRET = os.getenv("REDDIT_API_KEY_SECRET")

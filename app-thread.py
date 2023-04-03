@@ -111,9 +111,32 @@ def redditAPIcomments(user_input, REDDIT_API_KEY_PARA, REDDIT_API_KEY_SECRET_PAR
     # Create DataFrame
     df = pd.DataFrame(reddit_data)
 
+    #create keywords DataFrame
+    keywords_list = []
+    index_list = []
+    index = 0
+    for text in df["Text"]:
+        #here I should also remove punctuation and extract key phrases
+        keywords = text.split(" ")
+
+        for keywords in keywords:
+            keywords_list.append(keywords)
+            index_list.append(index)
+
+        index += 1
+
+    keywords_data = {"Index": index_list,
+                     "Keywords": keywords_list}
+
+    df_keywords = pd.DataFrame(keywords_data)
+
     filename = "Thread Reddit Data.xlsx"
-    
-    df.to_excel(filename)
+
+    with pd.ExcelWriter(filename) as writer:  
+        df.to_excel(writer, sheet_name='Reddit Thread')
+        df_keywords.to_excel(writer, sheet_name='Keywords')
+
+
     
     
 REDDIT_API_KEY = os.getenv("REDDIT_API_KEY")
