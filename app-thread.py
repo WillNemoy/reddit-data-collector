@@ -14,6 +14,34 @@ import datetime
 
 load_dotenv() # look in the ".env" file for env vars
 
+from textblob import TextBlob
+import re
+
+import pandas as pd
+import numpy as np
+
+def extract_keywords(text):
+
+    # Using filter() and lambda function to filter out punctuation characters
+    def remove_punctuation(text):
+        result = ''.join(filter(lambda x: x.isalpha() or x.isdigit() or x.isspace(), str(text)))
+        return result
+
+    #remove punctutation
+    text = remove_punctuation(text)
+
+    #select noun phrases
+    txtBlob = TextBlob(text).noun_phrases
+
+    noun_phrases = []
+    
+    #only return noun phrases with at least 2 words
+    for phrase in txtBlob:
+            if (" " in phrase):
+                noun_phrases.append(phrase)
+
+    return noun_phrases
+
 def clean_text(x):
         
             new_text = ""
@@ -117,7 +145,7 @@ def redditAPIcomments(user_input, REDDIT_API_KEY_PARA, REDDIT_API_KEY_SECRET_PAR
     index = 0
     for text in df["Text"]:
         #here I should also remove punctuation and extract key phrases
-        keywords = text.split(" ")
+        keywords = extract_keywords(text)
 
         for keywords in keywords:
             keywords_list.append(keywords)
