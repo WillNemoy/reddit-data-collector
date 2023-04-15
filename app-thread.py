@@ -172,4 +172,4 @@ REDDIT_API_KEY_SECRET = os.getenv("REDDIT_API_KEY_SECRET")
 USER_AGENT = "Will Collecting Reddit Data test" #os.getenv("USER_AGENT")
 
 
-redditAPIcomments("https://www.reddit.com/r/WeAreTheMusicMakers/comments/sfh24h/whats_your_take_on_spotify/", REDDIT_API_KEY, REDDIT_API_KEY_SECRET, USER_AGENT)
+redditAPIcomments("https://www.reddit.com/r/WeAreTheMusicMakers/comments/3b2g9n/american_idol_winners_sue_sony_music_your_equity/", REDDIT_API_KEY, REDDIT_API_KEY_SECRET, USER_AGENT)
