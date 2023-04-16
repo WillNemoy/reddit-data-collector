@@ -11,6 +11,7 @@ import os
 from dotenv import load_dotenv
 import json
 import datetime
+import time
 
 load_dotenv() # look in the ".env" file for env vars
 
@@ -81,7 +82,7 @@ def clean_text(x):
 
             return new_text
 
-def redditAPIcomments(user_input, REDDIT_API_KEY_PARA, REDDIT_API_KEY_SECRET_PARA, USER_AGENT_PARA):
+def redditAPIcomments(user_input, REDDIT_API_KEY_PARA, REDDIT_API_KEY_SECRET_PARA, USER_AGENT_PARA, file_name):
 
     reddit = praw.Reddit(client_id = REDDIT_API_KEY_PARA, #peronal use script
                         client_secret = REDDIT_API_KEY_SECRET_PARA, #secret token
@@ -158,7 +159,7 @@ def redditAPIcomments(user_input, REDDIT_API_KEY_PARA, REDDIT_API_KEY_SECRET_PAR
 
     df_keywords = pd.DataFrame(keywords_data)
 
-    filename = "Thread Reddit Data.xlsx"
+    filename = file_name + " Thread Reddit Data.xlsx"
 
     with pd.ExcelWriter(filename) as writer:  
         df.to_excel(writer, sheet_name='Reddit Thread')
@@ -172,4 +173,24 @@ REDDIT_API_KEY_SECRET = os.getenv("REDDIT_API_KEY_SECRET")
 USER_AGENT = "Will Collecting Reddit Data test" #os.getenv("USER_AGENT")
 
 
-redditAPIcomments("https://www.reddit.com/r/WeAreTheMusicMakers/comments/3b2g9n/american_idol_winners_sue_sony_music_your_equity/", REDDIT_API_KEY, REDDIT_API_KEY_SECRET, USER_AGENT)
+
+#redditAPIcomments("https://www.reddit.com/r/WeAreTheMusicMakers/comments/10gkbj1/have_you_ever_successfully_pitched_your_song_for/", REDDIT_API_KEY, REDDIT_API_KEY_SECRET, USER_AGENT)
+
+josh_URLs = ["https://www.reddit.com/r/WeAreTheMusicMakers/comments/ezkjed/for_all_the_working_musicians_and_producers_out/",
+            "https://www.reddit.com/r/WeAreTheMusicMakers/comments/ko8fox/a_music_label_wants_to_invest_in_my_music_and_i/",
+            "https://www.reddit.com/r/WeAreTheMusicMakers/comments/bcegae/spotify_turns_over_about_5_billion_annually/",
+            "https://www.reddit.com/r/WeAreTheMusicMakers/comments/9x2h76/i_work_in_music_marketing_and_i_always_struggle/",
+            "https://www.reddit.com/r/WeAreTheMusicMakers/comments/jhgh6t/made_this_with_my_artist_data_to_show_the/",
+            "https://www.reddit.com/r/shareyourmusic/comments/isnpj2/im_tired_of_huge_playlists_charging_money_for/",
+            "https://www.reddit.com/r/musicians/comments/rbhl2q/just_a_warning_for_all_musicians/",
+            "https://www.reddit.com/r/WeAreTheMusicMakers/comments/e6o4gu/we_protested_and_soundcloud_listened/"]
+
+count = 1
+for url in josh_URLs:
+    try:
+        redditAPIcomments(url, REDDIT_API_KEY, REDDIT_API_KEY_SECRET, USER_AGENT, str(count))
+    except:
+        nothing = "nothing"
+        
+    count += 1
+    time.sleep(100)
